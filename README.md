@@ -1,111 +1,246 @@
-# ⚔️ PathForge — Dijkstra Studio & Dungeon Escape
+# PathForge
 
-**PathForge** is an interactive, visual graph theory platform that combines a precision **Dijkstra Shortest Path Studio (Lab Mode)** with an engaging procedural **Dungeon Escape Game (Dungeon Mode)**.
+PathForge is an interactive web application for learning and experimenting with **Dijkstra's shortest path algorithm**.
 
-Designed for learners, educators, and algorithm enthusiasts, PathForge makes graph traversal intuitive, visual, and fun.
+It has two modes:
 
----
+* **Lab Mode** — Build your own graph and watch Dijkstra's algorithm run step by step.
+* **Dungeon Mode** — Play a small pathfinding game where different terrains have different movement costs, then compare your route with Dijkstra's optimal path.
 
-## 🎮 Modes Overview
+## Features
 
-PathForge features two dedicated modes accessible via the top navigation bar:
+### Lab Mode
 
+Lab Mode lets you create and experiment with weighted graphs directly in the browser.
+
+**Graph Editor**
+
+* Add nodes by double-clicking on the canvas.
+* Drag nodes to reposition them.
+* Connect nodes using `Ctrl` or `Alt` + drag.
+* Edit edge weights directly on the graph.
+* Switch between directed and undirected graphs.
+* Enter edges manually using the format:
+
+```text
+A B 4
+B C 3
+A C 8
 ```
-┌─────────────────────────────────────────────────────────────┐
-│ ⚔️ PathForge                 [ Lab | Dungeon ]  [ Directed ] │
-└─────────────────────────────────────────────────────────────┘
+
+The graph editor and edge list stay synchronized.
+
+**Dijkstra Visualization**
+
+Choose a source and destination node and run Dijkstra step by step.
+
+The visualization shows:
+
+* Current priority queue
+* Tentative distances
+* Relaxation steps
+* Algorithm logs
+* Current shortest path
+* Cumulative path cost
+
+You can control the playback using:
+
+`Previous` · `Play` · `Pause` · `Next`
+
+and change the speed between `0.5x`, `1x`, and `2x`.
+
+### Shortest Path View
+
+After running Dijkstra, PathForge extracts the shortest route and displays it separately.
+
+You can see:
+
+```text
+A → B → D → F
+  4   2   5
+
+Total Cost = 11
 ```
 
-### 1. 🧪 Lab Mode — Dijkstra Shortest Path Studio
-
-A clean, distraction-free environment for constructing graphs and inspecting Dijkstra's algorithm step-by-step.
-
-- **Fixed 1:1 Precision Canvas**:
-  - **Add Nodes**: Double-click anywhere on the canvas.
-  - **Move Nodes**: Click and drag to arrange your topology.
-  - **Connect Edges**: Hold `Ctrl` or `Alt` and drag from one node to another.
-  - **Edit Weights**: Double-click any weight badge directly on the canvas.
-  - **Directed / Undirected**: Toggle edge directionality with a single click in the header.
-- **Synchronized Text & Form Input**:
-  - **Manual Edge List**: Type edges in standard format (`u v weight`, e.g., `A B 4`). Canvas and text stay in real-time two-way synchronization.
-  - **Quick Edge Adder**: Convenient `From`, `To`, and `Weight` inputs for rapid graph construction.
-- **Dijkstra Step-by-Step Player**:
-  - Select any start and end node.
-  - Interactive playback controls: Play, Pause, Next Step, Previous Step, and playback speed adjustments (`0.5x`, `1x`, `2x`).
-  - Real-time priority queue inspection, tentative distance table, and algorithm logs explaining edge relaxations.
-- **Shortest Path Subgraph Extraction**:
-  - Visual SVG graph renderer that cleanly displays only the extracted optimal route.
-  - Hop-by-hop breakdown showing individual weights and cumulative distances.
-  - **"Isolate on Canvas"** toggle to dim distractions and spotlight the optimal path on the main graph.
+There is also an **Isolate Path** option that dims the other nodes and edges on the main graph.
 
 ---
 
-### 2. 🏰 Dungeon Escape — Procedural Pathfinding Game
+## Dungeon Mode
 
-Put your pathfinding intuition to the test before letting the algorithm reveal the answer!
+Dungeon Mode turns weighted pathfinding into a small game.
 
-- **Procedural Solvable Dungeons**:
-  - Every run generates a randomized, multi-layered dungeon guaranteed to have a viable path from the hero's starting room (🧙) to the treasure vault (💎).
-  - Dynamic room themes: 🏰 Castle, 🪨 Cave, 🌲 Forest, 🏛️ Temple, ⚔️ Arena, ⚡ Spire.
-- **Hazards & Terrain Costs**:
-  - 🚪 **Door** (Cost: `2`) — Standard stone corridor.
-  - 🧊 **Ice** (Cost: `3`) — Slippery, moderate path.
-  - 👹 **Monster** (Cost: `6`) — Dangerous corridor with combat penalty.
-  - 🔥 **Fire** (Cost: `8`) — High-damage lava route.
-  - 🪙 **Coins** — Collectible rewards that boost your score.
-- **Interactive Room-by-Room Gameplay**:
-  - Click any adjacent room on the canvas to move your character.
-  - Live dashboard tracking current room, route history, total cost, monsters fought, and coins gathered.
-- **Live Scoring & Dijkstra Comparison**:
-  - Score formula:
-    $$\text{Score} = 1000 - (\text{Cost} \times 25) - (\text{Monsters} \times 40) + (\text{Coins} \times 60)$$
-  - Reaching the 💎 Treasure Vault triggers a victory assessment comparing your route with Dijkstra's mathematically optimal path.
-  - Reveal Dijkstra's route to see what you could have optimized or start a new procedural run.
+You start as 🧙 and need to reach the 💎 treasure while choosing your route through the dungeon.
 
----
+Each dungeon is procedurally generated and guaranteed to have a path from the starting room to the treasure.
 
-## 🚀 Getting Started
+### Terrain Costs
 
-### Prerequisites
-- Node.js (v18 or higher recommended)
-- npm or yarn / pnpm
+| Terrain    | Cost |
+| ---------- | ---: |
+| 🚪 Door    |    2 |
+| 🧊 Ice     |    3 |
+| 👹 Monster |    6 |
+| 🔥 Fire    |    8 |
 
-### Installation & Local Run
+Some rooms also contain 🪙 coins that increase your final score.
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/ssnehatiwari21/pathforge.git
-   cd pathforge
-   ```
+The dungeon can have different themes such as:
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+* Castle
+* Cave
+* Forest
+* Temple
+* Arena
+* Spire
 
-3. **Start the local development server:**
-   ```bash
-   npm run dev
-   ```
-   Open your browser at `http://127.0.0.1:5173`.
+### Gameplay
 
-4. **Build for production:**
-   ```bash
-   npm run build
-   ```
+Move between adjacent rooms by clicking them.
 
----
+During the run, the game tracks:
 
-## 🛠️ Tech Stack
+* Current room
+* Route taken
+* Total path cost
+* Monsters encountered
+* Coins collected
 
-- **Framework**: [React 18](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
-- **Bundler & Tooling**: [Vite](https://vitejs.dev/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Algorithms**: Custom Dijkstra implementation with Min-Priority Queue state capture & procedural dungeon graph generator.
+When you reach the treasure, your route is compared with the path calculated by Dijkstra.
+
+This lets you see whether your decision was actually optimal.
+
+### Score
+
+Your score is calculated using:
+
+```text
+Score = 1000
+        - (Cost × 25)
+        - (Monsters × 40)
+        + (Coins × 60)
+```
+
+After finishing a run, you can reveal Dijkstra's route and compare it with your own.
 
 ---
 
-## 📜 License
+## How Dijkstra Is Used
 
-MIT License. Free to use for educational, personal, and open-source projects.
+PathForge uses Dijkstra's algorithm in both modes.
+
+### Lab Mode
+
+The algorithm runs on a graph created by the user.
+
+```text
+Graph → Priority Queue → Relax Edges → Update Distances
+                                      ↓
+                              Shortest Path
+```
+
+The application captures the intermediate states so that each step can be visualized instead of only showing the final answer.
+
+### Dungeon Mode
+
+The dungeon is represented as a weighted graph.
+
+* Each room is a node.
+* Moving between rooms creates an edge.
+* The terrain determines the edge weight.
+* Dijkstra finds the minimum-cost route to the treasure.
+
+This makes it easier to understand why the shortest path is not always the path with the fewest rooms.
+
+---
+
+## Tech Stack
+
+* **React 18**
+* **TypeScript**
+* **Vite**
+* **Tailwind CSS**
+* **Lucide React**
+* Custom Dijkstra implementation
+* Min-priority queue for shortest path calculation
+* Procedural dungeon generation
+
+---
+
+## Getting Started
+
+### Requirements
+
+* Node.js 18+
+* npm, yarn, or pnpm
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/ssnehatiwari21/pathforge.git
+cd pathforge
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open the local URL shown by Vite, usually:
+
+```text
+http://127.0.0.1:5173
+```
+
+### Production Build
+
+```bash
+npm run build
+```
+
+---
+
+## Project Structure
+
+A simplified structure of the application:
+
+```text
+pathforge/
+├── src/
+│   ├── components/
+│   ├── algorithms/
+│   │   └── dijkstra/
+│   ├── dungeon/
+│   ├── pages/
+│   └── ...
+├── public/
+├── package.json
+└── vite.config.ts
+```
+
+---
+
+## Why PathForge?
+
+Dijkstra's algorithm is usually taught using tables and static graphs.
+
+PathForge tries to make the process more visual:
+
+**Build → Run → Watch → Play → Compare**
+
+Instead of only seeing the final shortest path, you can see how the algorithm reaches that answer and then test the same idea yourself through the dungeon game.
+
+---
+
+## License
+
+Free to use for educational, personal, and open-source projects.
